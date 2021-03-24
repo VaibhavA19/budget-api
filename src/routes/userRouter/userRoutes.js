@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const User = require('../../models/userModel');
 
-
-
 router.route('/user')
   .get((req, res) => {
     const query = {};
@@ -19,7 +17,6 @@ router.route('/user')
   .post((req, res) => {
     const user = new User(req.body);
     user.save();
-    console.log(req.body);
     res.status(201).json(user);
   });
 

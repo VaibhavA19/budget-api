@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const connection = require('./connections');
 
 const userModel = new mongoose.Schema({
   userName: {
@@ -21,4 +22,5 @@ const userModel = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('User', userModel);
+const dbConnection = connection('mongodb://127.0.0.1:27017/usersJSON');
+module.exports = dbConnection.model('User', userModel);
