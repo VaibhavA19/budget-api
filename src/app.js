@@ -6,7 +6,7 @@ const userRouter = require('./routes/userRouter/userRoutes');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Add routes after middleware

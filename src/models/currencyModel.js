@@ -1,33 +1,34 @@
 const mongoose = require('mongoose');
+const connection = require('./connections');
 
 const currencyModel = mongoose.Schema({
-  countryName: {
+  symbol: {
     type: String,
     required: true,
     immutable: true,
-    minLength: 4
+    maxLength: 5
   },
-  currencyCode: {
+  code: {
     type: String,
     required: true,
     immutable: true,
     minLength: 3,
     maxLength: 3
   },
-  currencyName: {
+  name: {
     type: String,
     required: true,
     immutable: true,
     minLength: 3,
     maxLength: 30
   },
-  currencyNumber: {
-    type: String,
-    required: true,
-    immutable: true,
-    minLength: 3,
-    maxLength: 3
+  precision: {
+    type: Number,
+    required: false,
+    immutable: false,
+    default: 0
   }
 });
 
-module.exports = mongoose.model('Currency', currencyModel);
+const dbConnection = connection('mongodb://127.0.0.1:27017/currencyDB');
+module.exports = dbConnection.model('Currency', currencyModel);
