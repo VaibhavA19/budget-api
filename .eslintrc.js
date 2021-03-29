@@ -13,4 +13,5 @@ module.exports = {
   rules: {
     'comma-dangle': 0
   },
+  ignorePatterns: ['currencydb.js']
 };
