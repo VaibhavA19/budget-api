@@ -10,7 +10,7 @@ const userModel = new mongoose.Schema({
   },
   prefferedCurrency: {
     type: String,
-    default: 'INR',
+    required: true,
     trim: true,
     uppercase: true
   },

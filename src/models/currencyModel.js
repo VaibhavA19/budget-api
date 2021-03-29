@@ -31,4 +31,4 @@ const currencyModel = mongoose.Schema({
 });
 
 const dbConnection = connection('mongodb://127.0.0.1:27017/currencyDB');
-module.exports = dbConnection.model('Currency', currencyModel);
+module.exports = dbConnection.model('Currency', currencyModel, 'currency');
