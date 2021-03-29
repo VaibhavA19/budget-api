@@ -1,8 +1,13 @@
 const {
   StatusCodes
 } = require('http-status-codes');
+const {
+  validationResult
+} = require('express-validator');
+
 const router = require('express').Router();
 const User = require('../../models/userModel');
+const validation = require('../../validations/user');
 
 router.route('/user')
   .get((req, res) => {
@@ -19,16 +24,21 @@ router.route('/user')
       return res.json(users);
     });
   })
-  .post((req, res) => {
+  .post(validation.create(), (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        error: errors.errors.map((e) => e.msg).join('.')
+      });
+    }
     const user = new User(req.body);
     user.save((err, doc) => {
       if (err) {
-        res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
           error: err.message
         });
-      } else {
-        res.status(StatusCodes.CREATED).json(doc);
       }
+      return res.status(StatusCodes.CREATED).json(doc);
     });
   });
 
